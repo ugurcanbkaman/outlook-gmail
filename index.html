@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outlook'a Gmail Hesabı Ekleme - Kullanıcı Kılavuzu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0078D4;
+            --primary-dark: #005A9E;
+            --secondary: #FFB900;
+            --android: #3DDC84;
+            --ios: #007AFF;
+            --dark: #1a1a2e;
+            --darker: #16213e;
+            --light: #e8f4fc;
+            --text: #333;
+            --text-light: #666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #0f0f23 100%);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-animation .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, rgba(0, 120, 212, 0.1), rgba(255, 185, 0, 0.1));
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .bg-animation .circle:nth-child(1) { width: 300px; height: 300px; top: 10%; left: 10%; animation-delay: 0s; }
+        .bg-animation .circle:nth-child(2) { width: 200px; height: 200px; top: 60%; left: 80%; animation-delay: -5s; }
+        .bg-animation .circle:nth-child(3) { width: 150px; height: 150px; top: 80%; left: 20%; animation-delay: -10s; }
+        .bg-animation .circle:nth-child(4) { width: 250px; height: 250px; top: 20%; left: 70%; animation-delay: -15s; }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(30px, -30px) scale(1.1); }
+            50% { transform: translate(-20px, 20px) scale(0.9); }
+            75% { transform: translate(20px, 30px) scale(1.05); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+        }
+
+        .hero-content {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, rgba(0, 120, 212, 0.2), rgba(255, 185, 0, 0.2));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: #fff;
+            margin-bottom: 24px;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            background: linear-gradient(135deg, #fff 0%, #e0e0e0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: #fff;
+            box-shadow: 0 10px 40px rgba(0, 120, 212, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(0, 120, 212, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator i {
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(15px); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .platform-section {
+            padding: 80px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.1rem;
+        }
+
+        .platform-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .platform-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .platform-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .platform-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .platform-card.android {
+            border-top: 4px solid var(--android);
+        }
+
+        .platform-card.ios {
+            border-top: 4px solid var(--ios);
+        }
+
+        .platform-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 30px auto 20px;
+            font-size: 2rem;
+        }
+
+        .android .platform-icon {
+            background: linear-gradient(135deg, var(--android) 0%, #2cb36c 100%);
+            color: #fff;
+        }
+
+        .ios .platform-icon {
+            background: linear-gradient(135deg, var(--ios) 0%, #0056b3 100%);
+            color: #fff;
+        }
+
+        .platform-title {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 30px;
+        }
+
+        .steps-container {
+            padding: 0 20px 30px;
+        }
+
+        .step {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            margin-bottom: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .step.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .step:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .android .step-number {
+            background: linear-gradient(135deg, var(--android) 0%, #2cb36c 100%);
+            color: #fff;
+        }
+
+        .ios .step-number {
+            background: linear-gradient(135deg, var(--ios) 0%, #0056b3 100%);
+            color: #fff;
+        }
+
+        .step-content h3 {
+            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .step-content p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .step-content ul {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        .step-content li {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+        }
+
+        .note {
+            background: rgba(255, 185, 0, 0.1);
+            border: 1px solid rgba(255, 185, 0, 0.3);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 16px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .note i {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .note p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .screenshot-section {
+            padding: 30px 20px 40px;
+            text-align: center;
+        }
+
+        .screenshot-title {
+            color: #fff;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .android .screenshot-title i {
+            color: var(--android);
+        }
+
+        .ios .screenshot-title i {
+            color: var(--ios);
+        }
+
+        .screenshot-wrapper {
+            max-width: 500px;
+            margin: 0 auto 30px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            border: 3px solid rgba(255,255,255,0.1);
+            transition: all 0.4s ease;
+        }
+
+        .screenshot-wrapper:last-child {
+            margin-bottom: 0;
+        }
+
+        .android .screenshot-wrapper {
+            border-color: rgba(61, 220, 132, 0.3);
+        }
+
+        .ios .screenshot-wrapper {
+            border-color: rgba(0, 122, 255, 0.3);
+        }
+
+        .screenshot-wrapper img {
+            width: 100%;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .screenshot-wrapper:hover {
+            transform: scale(1.02);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+        }
+
+        .troubleshoot-section {
+            padding: 80px 0;
+        }
+
+        .troubleshoot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 24px;
+        }
+
+        .troubleshoot-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        .troubleshoot-card.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .troubleshoot-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .troubleshoot-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .troubleshoot-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: #fff;
+        }
+
+        .troubleshoot-header h3 {
+            color: #fff;
+            font-size: 1.2rem;
+        }
+
+        .troubleshoot-list {
+            list-style: none;
+        }
+
+        .troubleshoot-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+        }
+
+        .troubleshoot-list li:last-child {
+            border-bottom: none;
+        }
+
+        .troubleshoot-list li i {
+            color: #4ade80;
+            margin-top: 4px;
+        }
+
+        .notes-section {
+            padding: 80px 0;
+        }
+
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .note-card {
+            background: linear-gradient(135deg, rgba(0, 120, 212, 0.1) 0%, rgba(255, 185, 0, 0.1) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .note-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .note-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .note-card i {
+            font-size: 2rem;
+            color: var(--secondary);
+        }
+
+        .note-card h4 {
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .note-card p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 60px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav.scrolled {
+            background: rgba(15, 15, 35, 0.9);
+            backdrop-filter: blur(20px);
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .nav-logo i {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            z-index: 101;
+            transition: width 0.1s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-in {
+            animation: slideIn 0.6s ease-out forwards;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .step {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .step-number {
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+
+    <div class="progress-bar" id="progressBar"></div>
+
+    <nav class="nav" id="nav">
+        <div class="nav-content">
+            <a href="#" class="nav-logo">
+                <i class="fab fa-microsoft"></i>
+                <span>Outlook Kılavuzu</span>
+            </a>
+            <div class="nav-links">
+                <a href="#android">Android</a>
+                <a href="#ios">iOS</a>
+                <a href="#sorunlar">Sorunlar</a>
+                <a href="#notlar">Notlar</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-bookmark"></i>
+                Resmi Kullanıcı Kılavuzu
+            </div>
+            <h1>Outlook'a <span>Gmail</span> Hesabı Ekleme</h1>
+            <p class="hero-subtitle">
+                Android ve iOS cihazlarınızda Microsoft Outlook uygulamasına Gmail hesabınızı nasıl ekleyeceğinizi adım adım öğrenin.
+            </p>
+            <div class="hero-buttons">
+                <a href="#android" class="btn btn-primary">
+                    <i class="fab fa-android"></i>
+                    Android Kurulumu
+                </a>
+                <a href="#ios" class="btn btn-secondary">
+                    <i class="fab fa-apple"></i>
+                    iOS Kurulumu
+                </a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <section style="padding: 40px 0; text-align: center; position: relative; z-index: 1;">
+        <div style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
+            <h2 style="color: #fff; font-size: 1.8rem; margin-bottom: 24px; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                <i class="fas fa-mobile-alt" style="margin-right: 10px;"></i>
+                Android ve iOS Cihazlarda Outlook'a Gmail Hesabı Ekleme
+            </h2>
+            <img src="hero-image.png" alt="Outlook Gmail Kurulum" style="width: 100%; border-radius: 24px; box-shadow: 0 30px 80px rgba(0,0,0,0.4); border: 2px solid rgba(255,255,255,0.1); transition: all 0.4s ease;">
+        </div>
+    </section>
+
+    <section class="platform-section" id="android">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fab fa-android" style="color: var(--android);"></i> Android Cihazlarda Kurulum</h2>
+                <p>Adım adım Android cihazınıza Gmail hesabını ekleyin</p>
+            </div>
+
+            <div class="platform-grid">
+                <div class="platform-card android" data-animate>
+                    <div class="platform-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="platform-title">Microsoft Outlook</h3>
+
+                    <div class="steps-container">
+                        <div class="step" data-animate data-delay="100">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h3>Outlook Uygulamasını Açın</h3>
+                                <p>Telefonunuzda Microsoft Outlook uygulamasını açın. İlk kez açıyorsanız Hesap Ekle ekranı gelecektir.</p>
+                                <p style="margin-top: 10px;">Aksi halde sol üst köşedeki profil resminize dokunun, ardından sol altta bulunan <strong>Ayarlar (⚙️)</strong> simgesine girin ve <strong>Hesap Ekle</strong> seçeneğini seçin.</p>
+                            </div>
+                        </div>
+
+                        <div class="step" data-animate data-delay="200">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h3>Hesap Türünü Seçin</h3>
+                                <p>Açılan ekranda <strong>Google</strong> seçeneğine dokunun.</p>
+                                <div class="note">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    <p><strong>Önemli:</strong> Gmail hesabı eklemek için kesinlikle "Google" seçeneği kullanılmalıdır. IMAP seçeneği yalnızca manuel kurulum gerektiren durumlar içindir.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step" data-animate data-delay="300">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h3>Google Oturum Açma</h3>
+                                <p>Google giriş ekranı açılacaktır. E-posta adresinizi yazın ve <strong>İleri</strong> butonuna dokunun.</p>
+                                <p style="margin-top: 8px; color: var(--secondary);"><i class="fas fa-envelope"></i> Örnek: ornek@gmail.com</p>
+                            </div>
+                        </div>
+
+                        <div class="step" data-animate data-delay="400">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h3>Şifrenizi Girin</h3>
+                                <p>Gmail hesabınıza ait şifreyi yazın ve tekrar <strong>İleri</strong> butonuna basın.</p>
+                            </div>
+                        </div>
+
+                        <div class="step" data-animate data-delay="500">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <h3>İki Adımlı Doğrulama (Varsa)</h3>
+                                <p>Eğer Gmail hesabınızda aşağıdaki doğrulama yöntemlerinden biri aktifse:</p>
+                                <ul>
+                                    <li>Telefon doğrulaması</li>
+                                    <li>SMS doğrulaması</li>
+                                    <li>Google Authenticator</li>
+                                    <li>Güvenlik anahtarı</li>
+                                </ul>
+                                <p>Telefonunuza gelen bildirimi onaylayın veya doğrulama kodunu girin.</p>
+                            </div>
+                        </div>
+
+                        <div class="step" data-animate data-delay="600">
+                            <div class="step-number">6</div>
+                            <div class="step-content">
+                                <h3>Outlook Yetkilerini Onaylayın</h3>
+                                <p>Google sizden Outlook'un aşağıdaki verilere erişmesine izin vermenizi isteyecektir:</p>
+                                <ul>
+                                    <li>E-postalar</li>
+                                    <li>Kişiler</li>
+                                    <li>Takvim</li>
+                                    <li>Profil bilgileri</li>
+                                </ul>
+                                <p>En alta inerek <strong>İzin Ver</strong> butonuna dokunun.</p>
+                            </div>
+                        </div>
+
+                        <div class="step" data-animate data-delay="700">
+                            <div class="step-number">7</div>
+                            <div class="step-content">
+                                <h3>Hesap Outlook'a Ekleniyor</h3>
+                                <p>Birkaç saniye bekleyin. Outlook gerekli senkronizasyon işlemlerini yapacaktır. Bu işlem internet hızınıza göre değişebilir.</p>
+                            </div>
+                        </div>
+
+                        <div class="step" data-animate data-delay="800">
+                            <div class="step-number">8</div>
+                            <div class="step-content">
+                                <h3>Kurulum Tamamlandı ✓</h3>
+                                <p>Artık aşağıdaki klasörler otomatik olarak senkronize edilir:</p>
+                                <ul>
+                                    <li>Gelen Kutusu</li>
+                                    <li>Gönderilmiş Öğeler</li>
+                                    <li>Taslaklar</li>
+                                    <li>Spam</li>
+                                    <li>Çöp Kutusu</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="screenshot-section">
+                        <h4 class="screenshot-title">
+                            <i class="fab fa-android"></i>
+                            Android Outlook Uygulaması - Adımlar 1-4
+                        </h4>
+                        <div class="screenshot-wrapper">
+                            <img src="android-1-4.png" alt="Android Outlook Adımları 1-4">
+                        </div>
+                        <h4 class="screenshot-title">
+                            <i class="fab fa-android"></i>
+                            Android Outlook Uygulaması - Adımlar 5-8
+                        </h4>
+                        <div class="screenshot-wrapper">
+                            <img src="android-5-8.png" alt="Android Outlook Adımları 5-8">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="platform-section" id="ios">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fab fa-apple" style="color: var(--ios);"></i> iPhone (iOS) Cihazlarda Kurulum</h2>
+                <p>Adım adım iOS cihazınıza Gmail hesabını ekleyin</p>
+            </div>
+
+            <div class="platform-grid">
+                <div class="platform-card ios" data-animate>
+                    <div class="platform-icon">
+                        <i class="fab fa-apple"></i>
+                    </div>
+                    <h3 class="platform-title">Microsoft Outlook</h3>
+
+                    <div class="steps-container">
+                        <div class="step" data-animate data-delay="100">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h3>Outlook Uygulamasını Açın</h3>
+                                <p>App Store üzerinden Outlook uygulamasını indirin (henüz yüklemediyseniz). Uygulamayı açın.</p>
+                            </div>
+                        </div>
+
+                        <div class="step" data-animate data-delay="200">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h3>Hesap Ekle</h3>
+                                <p>Outlook daha önce kullanıldıysa:</p>
+                                <ul>
+                                    <li>Sol üstte profil simgesine dokunun</li>
+                                    <li>Sol alttaki <strong>Ayarlar</strong> simgesini açın</li>
+                                    <li><strong>Hesap Ekle</strong> seçeneğine girin</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="step" data-animate data-delay="300">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h3>Google Hesabını Seçin</h3>
+                                <p>Hesap türlerinden <strong>Google</strong> seçeneğine dokunun.</p>
+                            </div>
+                        </div>
+
+                        <div class="step" data-animate data-delay="400">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h3>Gmail Adresinizi Girin</h3>
+                                <p>Google giriş ekranı açılacaktır. E-posta adresinizi yazın ve <strong>İleri</strong> butonuna dokunun.</p>
+                                <p style="margin-top: 8px; color: var(--secondary);"><i class="fas fa-envelope"></i> Örnek: kullanici@gmail.com</p>
+                            </div>
+                        </div>
+
+                        <div class="step" data-animate data-delay="500">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <h3>Şifrenizi Yazın</h3>
+                                <p>Google hesabınızın şifresini girin ve tekrar <strong>İleri</strong> butonuna basın.</p>
+                            </div>
+                        </div>
+
+                        <div class="step" data-animate data-delay="600">
+                            <div class="step-number">6</div>
+                            <div class="step-content">
+                                <h3>Güvenlik Doğrulaması</h3>
+                                <p>İki aşamalı doğrulama açıksa:</p>
+                                <ul>
+                                    <li>Telefona gelen bildirimi onaylayın</li>
+                                    <li>SMS kodunu girin</li>
+                                    <li>Authenticator kodunu yazın</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="step" data-animate data-delay="700">
+                            <div class="step-number">7</div>
+                            <div class="step-content">
+                                <h3>Outlook Yetkileri</h3>
+                                <p>Google sizden aşağıdaki izinleri isteyecektir. Outlook'un;</p>
+                                <ul>
+                                    <li>Gmail</li>
+                                    <li>Takvim</li>
+                                    <li>Kişiler</li>
+                                </ul>
+                                <p>bilgilerine erişmesine izin verin. Sayfanın altında bulunan <strong>İzin Ver</strong> butonuna dokunun.</p>
+                            </div>
+                        </div>
+
+                        <div class="step" data-animate data-delay="800">
+                            <div class="step-number">8</div>
+                            <div class="step-content">
+                                <h3>Senkronizasyon</h3>
+                                <p>Outlook birkaç saniye içerisinde;</p>
+                                <ul>
+                                    <li>Tüm klasörleri</li>
+                                    <li>E-postaları</li>
+                                    <li>Kişileri</li>
+                                    <li>Takvimi</li>
+                                </ul>
+                                <p>senkronize edecektir.</p>
+                            </div>
+                        </div>
+
+                        <div class="step" data-animate data-delay="900">
+                            <div class="step-number">9</div>
+                            <div class="step-content">
+                                <h3>Kurulum Tamamlandı ✓</h3>
+                                <p>Artık Gmail hesabınız Outlook uygulamasında kullanılabilir. Yeni gelen e-postalar otomatik olarak senkronize edilir.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="screenshot-section">
+                        <h4 class="screenshot-title">
+                            <i class="fab fa-apple"></i>
+                            iOS Outlook Uygulaması - Adımlar 1-4
+                        </h4>
+                        <div class="screenshot-wrapper">
+                            <img src="ios-1-4.png" alt="iOS Outlook Adımları 1-4">
+                        </div>
+                        <h4 class="screenshot-title">
+                            <i class="fab fa-apple"></i>
+                            iOS Outlook Uygulaması - Adımlar 5-8
+                        </h4>
+                        <div class="screenshot-wrapper">
+                            <img src="ios-5-8.png" alt="iOS Outlook Adımları 5-8">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="troubleshoot-section" id="sorunlar">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-tools" style="color: var(--secondary);"></i> Karşılaşılabilecek Sorunlar ve Çözümleri</h2>
+                <p>Sık karşılaşılan problemler ve çözüm yolları</p>
+            </div>
+
+            <div class="troubleshoot-grid">
+                <div class="troubleshoot-card" data-animate data-delay="100">
+                    <div class="troubleshoot-header">
+                        <div class="troubleshoot-icon">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                        <h3>"Oturum açılamadı" Hatası</h3>
+                    </div>
+                    <ul class="troubleshoot-list">
+                        <li><i class="fas fa-check-circle"></i> İnternet bağlantınızı kontrol edin</li>
+                        <li><i class="fas fa-check-circle"></i> Gmail adresinizi doğru yazdığınızdan emin olun</li>
+                        <li><i class="fas fa-check-circle"></i> Şifrenizi kontrol edin</li>
+                        <li><i class="fas fa-check-circle"></i> Google hesabınızın kilitli olmadığını doğrulayın</li>
+                    </ul>
+                </div>
+
+                <div class="troubleshoot-card" data-animate data-delay="200">
+                    <div class="troubleshoot-header">
+                        <div class="troubleshoot-icon">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <h3>Şifre Kabul Edilmiyor</h3>
+                    </div>
+                    <ul class="troubleshoot-list">
+                        <li><i class="fas fa-check-circle"></i> Büyük/küçük harfleri kontrol edin</li>
+                        <li><i class="fas fa-check-circle"></i> Caps Lock açık olmadığından emin olun</li>
+                        <li><i class="fas fa-check-circle"></i> Şifrenizi unuttuysanız Google üzerinden sıfırlayın</li>
+                        <li><i class="fas fa-check-circle"></i> Şifre yöneticisi kullanıyorsanız doğru kaydı seçtiğinizden emin olun</li>
+                    </ul>
+                </div>
+
+                <div class="troubleshoot-card" data-animate data-delay="300">
+                    <div class="troubleshoot-header">
+                        <div class="troubleshoot-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>İki Adımlı Doğrulama Sorunu</h3>
+                    </div>
+                    <ul class="troubleshoot-list">
+                        <li><i class="fas fa-check-circle"></i> İnternet bağlantınızı kontrol edin</li>
+                        <li><i class="fas fa-check-circle"></i> Google Authenticator kodunu kullanın</li>
+                        <li><i class="fas fa-check-circle"></i> SMS doğrulamasını deneyin</li>
+                        <li><i class="fas fa-check-circle"></i> Yedek kodlarınız varsa onu kullanın</li>
+                    </ul>
+                </div>
+
+                <div class="troubleshoot-card" data-animate data-delay="400">
+                    <div class="troubleshoot-header">
+                        <div class="troubleshoot-icon">
+                            <i class="fas fa-envelope-open"></i>
+                        </div>
+                        <h3>E-postalar Gelmiyor</h3>
+                    </div>
+                    <ul class="troubleshoot-list">
+                        <li><i class="fas fa-check-circle"></i> Outlook uygulamasını kapatıp yeniden açın</li>
+                        <li><i class="fas fa-check-circle"></i> Ayarlar > Hesaplar > Senkronizasyon bölümünü kontrol edin</li>
+                        <li><i class="fas fa-check-circle"></i> Hesabı kaldırıp tekrar ekleyin</li>
+                        <li><i class="fas fa-check-circle"></i> Cihazınızı yeniden başlatın</li>
+                    </ul>
+                </div>
+
+                <div class="troubleshoot-card" data-animate data-delay="500">
+                    <div class="troubleshoot-header">
+                        <div class="troubleshoot-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <h3>Gmail Güvenlik Uyarısı</h3>
+                    </div>
+                    <ul class="troubleshoot-list">
+                        <li><i class="fas fa-check-circle"></i> Google yeni bir cihazdan giriş algıladığında uyarı gönderir</li>
+                        <li><i class="fas fa-check-circle"></i> E-postaya veya telefonunuza gelen bildirime dokunun</li>
+                        <li><i class="fas fa-check-circle"></i> <strong>"Bu bendim"</strong> seçeneğini onaylayın</li>
+                        <li><i class="fas fa-check-circle"></i> Girişin siz olduğunu doğrulayın</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="notes-section" id="notlar">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-star" style="color: var(--secondary);"></i> Önemli Notlar</h2>
+                <p>Başarılı bir kurulum için bilmeniz gerekenler</p>
+            </div>
+
+            <div class="notes-grid">
+                <div class="note-card" data-animate data-delay="100">
+                    <i class="fas fa-sync"></i>
+                    <div>
+                        <h4>Tam Uyumluluk</h4>
+                        <p>Outlook uygulaması Gmail ile tam uyumlu çalışmaktadır. Tüm özellikler sorunsuz kullanılabilir.</p>
+                    </div>
+                </div>
+
+                <div class="note-card" data-animate data-delay="200">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <div>
+                        <h4>Otomatik Senkronizasyon</h4>
+                        <p>E-postalar, kişiler ve takvim bilgileri otomatik olarak senkronize edilir.</p>
+                    </div>
+                </div>
+
+                <div class="note-card" data-animate data-delay="300">
+                    <i class="fas fa-wifi"></i>
+                    <div>
+                        <h4>Anlık Bildirimler</h4>
+                        <p>İnternet bağlantısı olduğu sürece yeni e-postalar anlık olarak alınabilir.</p>
+                    </div>
+                </div>
+
+                <div class="note-card" data-animate data-delay="400">
+                    <i class="fas fa-users"></i>
+                    <div>
+                        <h4>Çoklu Hesap Desteği</h4>
+                        <p>Aynı Outlook uygulamasına birden fazla Gmail hesabı eklenebilir ve hesaplar arasında kolayca geçiş yapılabilir.</p>
+                    </div>
+                </div>
+
+                <div class="note-card" data-animate data-delay="500">
+                    <i class="fas fa-lock"></i>
+                    <div>
+                        <h4>İki Aşamalı Doğrulama (2FA)</h4>
+                        <p>Hesabınızda 2FA etkinse, kurulum sırasında ek güvenlik doğrulaması istenmesi normaldir.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Outlook Gmail Kurulum Kılavuzu. Şirket içi kullanım için hazırlanmıştır.</p>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const delay = entry.target.dataset.delay || 0;
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, delay);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('[data-animate]').forEach(el => {
+            observer.observe(el);
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        document.querySelectorAll('.step').forEach(step => {
+            step.addEventListener('mouseenter', () => {
+                step.style.transform = 'translateX(10px)';
+            });
+            step.addEventListener('mouseleave', () => {
+                step.style.transform = 'translateX(0)';
+            });
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            const circles = document.querySelectorAll('.bg-animation .circle');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+
+            circles.forEach((circle, index) => {
+                const speed = (index + 1) * 20;
+                const xOffset = (x - 0.5) * speed;
+                const yOffset = (y - 0.5) * speed;
+                circle.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+            });
+        });
+
+        const heroTitle = document.querySelector('.hero h1');
+        const originalText = heroTitle.innerHTML;
+        heroTitle.innerHTML = '';
+
+        let charIndex = 0;
+        function typeWriter() {
+            if (charIndex < originalText.length) {
+                if (originalText.charAt(charIndex) === '<') {
+                    const closeIndex = originalText.indexOf('>', charIndex);
+                    heroTitle.innerHTML += originalText.substring(charIndex, closeIndex + 1);
+                    charIndex = closeIndex + 1;
+                } else {
+                    heroTitle.innerHTML += originalText.charAt(charIndex);
+                    charIndex++;
+                }
+                setTimeout(typeWriter, 30);
+            }
+        }
+
+        setTimeout(typeWriter, 500);
+    </script>
+</body>
+</html>
